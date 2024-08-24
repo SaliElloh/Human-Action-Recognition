@@ -36,6 +36,13 @@ CImplemented ConvLSTM and LRCN models for human action recognition using TensorF
 * An LRCN model is constructed with TimeDistributed 2D convolutional layers, followed by MaxPooling, Dropout, LSTM, and a Dense layer for classification.
 * The model is optimized for video classification, using 'relu' activation in Conv2D, MaxPooling2D for reducing spatial dimensions, and Dropout to prevent overfitting.
 
+### Results:
+
+## Comparitive Analysis:
+
+![image](https://github.com/user-attachments/assets/42e32dfe-f03a-4950-b1cf-8edadd22ff12)
+
+
 ### Built With
 
 The frameworks and libraries used within this project are:
@@ -57,9 +64,19 @@ The frameworks and libraries used within this project are:
 
 <!-- Dataset -->
 
+UCF50 is an action recognition data set with 50 action categories, consisting of realistic videos taken from youtube. This data set is an extension of YouTube Action data set (UCF11) which has 11 action categories. The dataset could be accessed here: https://www.crcv.ucf.edu/data/UCF50.php
+
+More information:
+* Number of Classes: 50 different action categories.
+*  Number of Videos: 6,618 video clips.
+*  Categories: Includes activities like "Basketball", "Biking", "Diving", "PushUps", "Skateboarding", etc.
+*  Data Source: Videos collected from YouTube.
+*  Video Format: .avi format with varying resolutions and durations.
+
 
 <!-- GETTING STARTED -->
 ## Getting Started
+
 
 
 ### Prerequisites
@@ -67,9 +84,14 @@ The frameworks and libraries used within this project are:
 
 ### Steps to run the code:
 
+1. Download files "human_action_recognition_and_pose_detection.ipynb" and "human_action_recognition.ipynb"
+2. Insure python and Jupyter Notebook are installed. Alteratively, you can run using Google Colab
+3. Insure necessary libraries and frameworks are downloadeed
    
 <!-- NEW LABELS IMAGE EXAMPLES -->
 ## Image examples
+
+
 
 
 <!-- LICENSE -->
@@ -82,13 +104,6 @@ No License used.
 
 Sali E-loh - [@Sali El-loh](https://www.linkedin.com/in/salielloh12/) - ellohsali@gmail.com
 
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-This project was inspired by the TensorFlow, "Basic classification: Classify images of clothing" tutorial.
-
-* [TensoFlow: Clothes Image Classification Tutorial](https://www.tensorflow.org/tutorials/keras/classification)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
