@@ -82,7 +82,7 @@ ConvLSTM:
 * Recall: 83.6%
 * The model was prone to false positives and negatives due to overfitting.
 
-![image](https://github.com/user-attachments/assets/42e32dfe-f03a-4950-b1cf-8edadd22ff12)
+![image](https://github.com/user-attachments/assets/70a3e57c-319e-48fb-85b0-e8b35abc7600)
 
 <!-- Built With -->
 ## Built With:
