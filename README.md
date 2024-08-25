@@ -18,15 +18,15 @@ my LinkedIn: [![LinkedIn][LinkedIn.js]][LinkedIn-url]
 
 ###  Dataset:
 
-* UCF50 Dataset is used.
-* Details: 50 action categories, 6,618 video clips, used for training and testing models in video-based action recognition.
+* UCF50 Dataset is used. The dataset could be accessed here: https://www.crcv.ucf.edu/data/UCF50.php
+* Details: 50 action categories, 6,618 video clips, used for training and testing models in video-based action recognition, and includes activities like "Basketball", "Biking", "Diving", "PushUps", "Skateboarding", etc.
 
 
 <!-- METHODOLOGY -->
 
 ### Data Preprocessing:
 
-* Extracted frames from UCF50 videos.
+* Extracted frames from UCF50 videos.f
 * Resized frames to 64x64 pixels.
 * Normalized pixel values to [0, 1].
 * Extracted 20 frames per video.
@@ -44,11 +44,21 @@ my LinkedIn: [![LinkedIn][LinkedIn.js]][LinkedIn-url]
 * An LRCN model is constructed with TimeDistributed 2D convolutional layers, followed by MaxPooling, Dropout, LSTM, and a Dense layer for classification.
 * The model is optimized for video classification, using 'relu' activation in Conv2D, MaxPooling2D for reducing spatial dimensions, and Dropout to prevent overfitting.
 
-## Results:
 
-### Comparitive Analysis:
+  <!-- GETTING STARTED -->
+## Getting Started
 
-Validation Accuracy vs. Training Accuracy:
+### Steps to run the code:
+
+1. Download files "human_action_recognition_and_pose_detection.ipynb" and "human_action_recognition.ipynb"
+2. Insure python and Jupyter Notebook are installed. Alteratively, you can run using Google Colab
+3. Insure necessary libraries and frameworks are downloaded
+
+<!-- Results -->
+
+## Comparitive Analysis:
+
+### Validation Accuracy vs. Training Accuracy:
 
 ConvLSTM:
 *  Demonstrated robustness in the early stages of training.
@@ -74,7 +84,8 @@ ConvLSTM:
 
 ![image](https://github.com/user-attachments/assets/42e32dfe-f03a-4950-b1cf-8edadd22ff12)
 
-### Built With
+<!-- Built With -->
+## Built With:
 
 The frameworks and libraries used within this project are:
 
@@ -91,36 +102,6 @@ The frameworks and libraries used within this project are:
 [![Keras][Keras.js]][Keras-url]
 [![MoviePy][MoviePy.js]][MoviePy-url]
 [![Scikit-learn][Scikit-learn.js]][Scikit-learn-url]
-
-
-<!-- Dataset -->
-
-UCF50 is an action recognition data set with 50 action categories, consisting of realistic videos taken from youtube. This data set is an extension of YouTube Action data set (UCF11) which has 11 action categories. The dataset could be accessed here: https://www.crcv.ucf.edu/data/UCF50.php
-
-More information:
-* Number of Classes: 50 different action categories.
-*  Number of Videos: 6,618 video clips.
-*  Categories: Includes activities like "Basketball", "Biking", "Diving", "PushUps", "Skateboarding", etc.
-*  Data Source: Videos collected from YouTube.
-*  Video Format: .avi format with varying resolutions and durations.
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-
-### Prerequisites
-
-
-### Steps to run the code:
-
-1. Download files "human_action_recognition_and_pose_detection.ipynb" and "human_action_recognition.ipynb"
-2. Insure python and Jupyter Notebook are installed. Alteratively, you can run using Google Colab
-3. Insure necessary libraries and frameworks are downloadeed
-   
-<!-- NEW LABELS IMAGE EXAMPLES -->
-## Image examples
-
 
 <!-- LICENSE -->
 ## License
