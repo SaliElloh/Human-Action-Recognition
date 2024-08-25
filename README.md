@@ -1,12 +1,3 @@
-Human-Action-Recognition
-
-Final Project for my ECE 5831 (Pattern Recognition and Neural Networks) class.
-
-For more information about me, please visit my LinkedIn:
-
-[![LinkedIn][LinkedIn.js]][LinkedIn-url]
-
-
 <div align="center">
   <h3 align="center">A brief Read.me introducing the project and its contents</h3>
     <br />
@@ -15,15 +6,32 @@ For more information about me, please visit my LinkedIn:
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
 
-CImplemented ConvLSTM and LRCN models for human action recognition using TensorFlow and Keras. and Integrated pose prediction with action recognition using OpenCV and MediaPipe.
+## Abstract
 
-###  Data Preprocessing:
+This project explores the application of computer vision techniques for human action recognition using ConvLSTM and LRCN models. The study highlights the strengths and limitations of each model and integrates a novel approach by combining human action recognition with pose prediction.
 
-* UCF50 Dataset is used
-* Frames are extracted from videos using OpenCV, resized to 64x64 pixels, and normalized.
-* 20 frames are sampled from each video, organized as sequences with corresponding one-hot encoded labels.
+## Introduction
+This is my Final Project submission for my ECE 5831 (Pattern Recognition and Neural Networks) class. The  research aims to apply advanced deep learning models for human action recognition, focusing on ConvLSTM and LRCN architectures, using TensorFlow and Keras, and integrated pose prediction with action recognition using OpenCV and MediaPipe.
+
+my LinkedIn: [![LinkedIn][LinkedIn.js]][LinkedIn-url]
+
+###  Dataset:
+
+* UCF50 Dataset is used.
+* Details: 50 action categories, 6,618 video clips, used for training and testing models in video-based action recognition.
+
+
+<!-- METHODOLOGY -->
+
+### Data Preprocessing:
+
+* Extracted frames from UCF50 videos.
+* Resized frames to 64x64 pixels.
+* Normalized pixel values to [0, 1].
+* Extracted 20 frames per video.
+* One-hot encoded labels.
+
 
 ### ConvLSTM Model:
 
@@ -36,12 +44,35 @@ CImplemented ConvLSTM and LRCN models for human action recognition using TensorF
 * An LRCN model is constructed with TimeDistributed 2D convolutional layers, followed by MaxPooling, Dropout, LSTM, and a Dense layer for classification.
 * The model is optimized for video classification, using 'relu' activation in Conv2D, MaxPooling2D for reducing spatial dimensions, and Dropout to prevent overfitting.
 
-### Results:
+## Results:
 
-## Comparitive Analysis:
+### Comparitive Analysis:
+
+Validation Accuracy vs. Training Accuracy:
+
+ConvLSTM:
+*  Demonstrated robustness in the early stages of training.
+* Overfitting observed after several epochs, leading to a divergence between training and validation accuracy.
+* Early Stopping successfully prevented further overfitting.
+LRCN:
+* Showed stable training with a consistent gap between validation and training accuracy.
+* Less susceptible to overfitting compared to ConvLSTM.
+
+### Precision and Recall:
+
+LRCN:
+* Loss: 0.5233
+* Accuracy: 87.70%
+* Precision: 87.60%
+* Recall: 86.89%
+* High precision and recall indicate effective positive instance identification with minimal false positives and negatives.
+  
+ConvLSTM:
+* Precision: 83.6%
+* Recall: 83.6%
+* The model was prone to false positives and negatives due to overfitting.
 
 ![image](https://github.com/user-attachments/assets/42e32dfe-f03a-4950-b1cf-8edadd22ff12)
-
 
 ### Built With
 
@@ -78,7 +109,6 @@ More information:
 ## Getting Started
 
 
-
 ### Prerequisites
 
 
@@ -90,8 +120,6 @@ More information:
    
 <!-- NEW LABELS IMAGE EXAMPLES -->
 ## Image examples
-
-
 
 
 <!-- LICENSE -->
