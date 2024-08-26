@@ -1,9 +1,4 @@
-<div align="center">
-  <h3 align="center">A brief Read.me introducing the project and its contents</h3>
-    <br />
-  </p>
-</div>
-
+# Human-Action-Recognition
 
 <!-- ABOUT THE PROJECT -->
 
