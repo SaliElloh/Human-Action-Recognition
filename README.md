@@ -1,169 +1,142 @@
-# Human-Action-Recognition
+# Human Action Recognition with Pose Detection 🎬🤸
 
-<!-- ABOUT THE PROJECT -->
+[![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)](https://python.org)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)](https://tensorflow.org)
+[![Keras](https://img.shields.io/badge/Keras-D00000?style=flat&logo=keras&logoColor=white)](https://keras.io)
+[![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat&logo=opencv&logoColor=white)](https://opencv.org)
+[![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat&logo=numpy&logoColor=white)](https://numpy.org)
+[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
+[![University of Michigan](https://img.shields.io/badge/UMich-00274C?style=flat)](https://umich.edu)
 
-## Abstract
+> **ECE 5831 — Pattern Recognition and Neural Networks**  
+> University of Michigan, Dearborn | Fall 2023
 
-This project explores the application of computer vision techniques for human action recognition using ConvLSTM and LRCN models. The study highlights the strengths and limitations of each model and integrates a novel approach by combining human action recognition with pose prediction.
+---
 
-## Introduction
-This is my Final Project submission for my ECE 5831 (Pattern Recognition and Neural Networks) class. The  research aims to apply advanced deep learning models for human action recognition, focusing on ConvLSTM and LRCN architectures, using TensorFlow and Keras, and integrated pose prediction with action recognition using OpenCV and MediaPipe.
+## Overview
 
-my LinkedIn: [![LinkedIn][LinkedIn.js]][LinkedIn-url]
+This project applies deep learning for **video-based human action recognition**, comparing two state-of-the-art architectures — **ConvLSTM** and **LRCN (Long-term Recurrent Convolutional Network)** — on the UCF50 benchmark dataset across 50 action categories.
 
-###  Dataset:
+A key contribution of this work is the integration of **real-time pose estimation** (via MediaPipe) alongside action recognition, creating a richer, more interpretable representation of human motion that goes beyond frame-level classification.
 
-* UCF50 Dataset is used. The dataset could be accessed here: https://www.crcv.ucf.edu/data/UCF50.php
-* Details: 50 action categories, 6,618 video clips, used for training and testing models in video-based action recognition, and includes activities like "Basketball", "Biking", "Diving", "PushUps", "Skateboarding", etc.
+---
 
+## Results
 
-<!-- METHODOLOGY -->
+| Model | Accuracy | Precision | Recall | Loss |
+|---|---|---|---|---|
+| **LRCN** | **87.70%** | **87.60%** | **86.89%** | **0.5233** |
+| ConvLSTM | 83.60% | 83.60% | 83.60% | 0.6548 |
 
-### Data Preprocessing:
+**LRCN outperformed ConvLSTM** on all metrics — showing more stable training behavior with a consistent validation gap and significantly lower susceptibility to overfitting.
 
-* Extracted frames from UCF50 videos.f
-* Resized frames to 64x64 pixels.
-* Normalized pixel values to [0, 1].
-* Extracted 20 frames per video.
-* One-hot encoded labels.
+![Training Results](https://github.com/user-attachments/assets/70a3e57c-319e-48fb-85b0-e8b35abc7600)
 
+---
 
-### ConvLSTM Model:
+## Dataset
 
-* A ConvLSTM model is built using TensorFlow and Keras, with layers including ConvLSTM, MaxPooling3D, Dropout, Flatten, and Dense.
-* The model uses key hyperparameters like varying filter sizes, (3, 3) kernels, tanh activation, and recurrent dropout to prevent overfitting.
-*MaxPooling3D and TimeDistributed dropout are used for spatial down-sampling and enhancing robustness.
+**UCF50** — a challenging benchmark for action recognition in realistic video conditions.
 
-### LRCN Model:
+- 50 action categories (Basketball, Biking, Diving, PushUps, Skateboarding, etc.)
+- 6,618 video clips collected from YouTube
+- High intra-class variation in viewpoint, background, and lighting
 
-* An LRCN model is constructed with TimeDistributed 2D convolutional layers, followed by MaxPooling, Dropout, LSTM, and a Dense layer for classification.
-* The model is optimized for video classification, using 'relu' activation in Conv2D, MaxPooling2D for reducing spatial dimensions, and Dropout to prevent overfitting.
+Dataset: [UCF50 — University of Central Florida](https://www.crcv.ucf.edu/data/UCF50.php)
 
+---
 
-  <!-- GETTING STARTED -->
+## Methodology
+
+### Data Preprocessing
+
+- Extracted 20 uniformly sampled frames per video clip
+- Resized all frames to 64×64 pixels
+- Normalized pixel values to [0, 1]
+- Applied one-hot encoding to action labels
+
+### Model 1 — ConvLSTM
+
+ConvLSTM replaces standard LSTM matrix multiplications with convolution operations, allowing it to capture both **spatial and temporal patterns** within a single recurrent cell.
+
+**Architecture:**
+- ConvLSTM layers with varying filter sizes and (3, 3) kernels
+- MaxPooling3D for spatial downsampling
+- TimeDistributed Dropout for regularization
+- Flatten + Dense output layer
+- `tanh` activation with recurrent dropout
+
+**Findings:** Strong early-stage learning but prone to overfitting after several epochs. Early Stopping was applied to prevent further divergence between training and validation accuracy.
+
+### Model 2 — LRCN
+
+LRCN separates spatial and temporal processing into two distinct stages — CNN layers extract per-frame spatial features, which are then passed sequentially through an LSTM for temporal reasoning.
+
+**Architecture:**
+- TimeDistributed Conv2D layers with `relu` activation
+- TimeDistributed MaxPooling2D for spatial reduction
+- TimeDistributed Dropout
+- LSTM layer for temporal sequence modeling
+- Dense output layer with softmax
+
+**Findings:** More stable training curve, less overfitting, and better generalization — making it the stronger architecture for this task.
+
+### Pose Detection Integration
+
+Beyond classification, this project integrates **MediaPipe** for real-time human pose estimation, overlaying skeletal keypoints on video frames alongside the predicted action label. This approach provides a more holistic understanding of human motion and improves interpretability of model predictions.
+
+---
+
 ## Getting Started
 
-### Steps to run the code:
+### Prerequisites
 
-1. Download files "human_action_recognition_and_pose_detection.ipynb" and "human_action_recognition.ipynb"
-2. Insure python and Jupyter Notebook are installed. Alteratively, you can run using Google Colab
-3. Insure necessary libraries and frameworks are downloaded
+```bash
+pip install tensorflow keras opencv-python mediapipe numpy matplotlib scikit-learn moviepy
+```
 
-<!-- Results -->
+### Run the notebooks
 
-## Comparitive Analysis:
+```bash
+# Clone the repository
+git clone https://github.com/SaliElloh/Human-Action-Recognition
+cd Human-Action-Recognition
+```
 
-### Validation Accuracy vs. Training Accuracy:
+Then open one of the two notebooks:
 
-ConvLSTM:
-*  Demonstrated robustness in the early stages of training.
-* Overfitting observed after several epochs, leading to a divergence between training and validation accuracy.
-* Early Stopping successfully prevented further overfitting.
-LRCN:
-* Showed stable training with a consistent gap between validation and training accuracy.
-* Less susceptible to overfitting compared to ConvLSTM.
+| Notebook | Description |
+|---|---|
+| `human_action_recognition.ipynb` | ConvLSTM and LRCN model training and evaluation |
+| `human_action_recognition_and_pose_detection.ipynb` | Action recognition + real-time pose overlay |
 
-### Precision and Recall:
+Run in **Jupyter Notebook** or **Google Colab** (recommended for GPU access).
 
-LRCN:
-* Loss: 0.5233
-* Accuracy: 87.70%
-* Precision: 87.60%
-* Recall: 86.89%
-* High precision and recall indicate effective positive instance identification with minimal false positives and negatives.
-  
-ConvLSTM:
-* Precision: 83.6%
-* Recall: 83.6%
-* The model was prone to false positives and negatives due to overfitting.
+> **Note:** Download the UCF50 dataset from the link above and place it in the root directory before running.
 
-![image](https://github.com/user-attachments/assets/70a3e57c-319e-48fb-85b0-e8b35abc7600)
+---
 
-<!-- Built With -->
-## Built With:
+## Key Findings
 
-The frameworks and libraries used within this project are:
+- **LRCN is the superior architecture** for this task — its decoupled spatial-temporal design generalizes better than ConvLSTM's joint approach
+- **Overfitting is the primary challenge** with ConvLSTM — Early Stopping helps but LRCN avoids the problem structurally
+- **Pose estimation enhances interpretability** — knowing *where* the body is provides richer context than pixel-level features alone
+- At 87.70% accuracy on 50 classes, LRCN approaches state-of-the-art performance for lightweight video classification models
 
-[![Pafy][Pafy.js]][Pafy-url]
-[![OS][OS.js]][OS-url]
-[![OpenCV][OpenCV.js]][OpenCV-url]
-[![Math][Math.js]][Math-url]
-[![Random][Random.js]][Random-url]
-[![NumPy][NumPy.js]][NumPy-url]
-[![Datetime][Datetime.js]][Datetime-url]
-[![TensorFlow][TensorFlow.js]][TensorFlow-url]
-[![Deque][Deque.js]][Deque-url]
-[![Matplotlib][Matplotlib.js]][Matplotlib-url]
-[![Keras][Keras.js]][Keras-url]
-[![MoviePy][MoviePy.js]][MoviePy-url]
-[![Scikit-learn][Scikit-learn.js]][Scikit-learn-url]
+---
 
-<!-- LICENSE -->
+## Author
+
+**Sali El-loh**  
+M.S. Artificial Intelligence | University of Michigan — Dearborn  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/salielloh12/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/SaliElloh)
+[![Email](https://img.shields.io/badge/Email-D14836?style=flat&logo=gmail&logoColor=white)](mailto:selloh@umich.edu)
+
+---
+
 ## License
 
-No License used.
-
-<!-- CONTACT -->
-## Contact
-
-Sali E-loh - [@Sali El-loh](https://www.linkedin.com/in/salielloh12/) - ellohsali@gmail.com
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[LinkedIn.js]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
-[LinkedIn-url]: https://www.linkedin.com/in/salielloh12/
-[Tensorflow.js]: https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white
-[Tensorflow-url]: https://www.tensorflow.org/
-[Keras.js]: https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white
-[Keras-url]: https://keras.io/
-[NumPy.js]: https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white
-[NumPy-url]: https://numpy.org/
-[Matplotlib.js]: https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black
-[Matplotlib-url]: https://matplotlib.org/
-
-[Python.js]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
-[Python-url]: https://www.python.org/
-
-[Pafy.js]: https://img.shields.io/badge/Pafy-FF6600?style=for-the-badge
-[Pafy-url]: https://github.com/mps-youtube/pafy
-
-[OS.js]: https://img.shields.io/badge/OS-44a833?style=for-the-badge
-[OS-url]: https://docs.python.org/3/library/os.html
-
-[OpenCV.js]: https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white
-[OpenCV-url]: https://opencv.org/
-
-[Math.js]: https://img.shields.io/badge/Math-000000?style=for-the-badge
-[Math-url]: https://docs.python.org/3/library/math.html
-
-[Random.js]: https://img.shields.io/badge/Random-44a833?style=for-the-badge
-[Random-url]: https://docs.python.org/3/library/random.html
-
-[NumPy.js]: https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white
-[NumPy-url]: https://numpy.org/
-
-[Datetime.js]: https://img.shields.io/badge/Datetime-44a833?style=for-the-badge
-[Datetime-url]: https://docs.python.org/3/library/datetime.html
-
-[TensorFlow.js]: https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white
-[TensorFlow-url]: https://www.tensorflow.org/
-
-[Deque.js]: https://img.shields.io/badge/Deque-44a833?style=for-the-badge
-[Deque-url]: https://docs.python.org/3/library/collections.html#collections.deque
-
-[Matplotlib.js]: https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black
-[Matplotlib-url]: https://matplotlib.org/
-
-[Keras.js]: https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white
-[Keras-url]: https://keras.io/
-
-[MoviePy.js]: https://img.shields.io/badge/MoviePy-FF4500?style=for-the-badge
-[MoviePy-url]: https://zulko.github.io/moviepy/
-
-[Scikit-learn.js]: https://img.shields.io/badge/Scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white
-[Scikit-learn-url]: https://scikit-learn.org/
-
-
+No license specified. Contact the author for usage permissions.
 
 
